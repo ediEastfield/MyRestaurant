@@ -3,14 +3,18 @@ package com.dicoding.myrestaurant.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.dicoding.myrestaurant.BuildConfig
 import com.dicoding.myrestaurant.R
 import com.dicoding.myrestaurant.core.data.Resource
+import com.dicoding.myrestaurant.core.domain.model.CustomerReview
 import com.dicoding.myrestaurant.core.domain.model.DetailRestaurant
+import com.dicoding.myrestaurant.core.domain.model.Menu
 import com.dicoding.myrestaurant.core.ui.CustomerReviewAdapter
 import com.dicoding.myrestaurant.core.ui.MenuAdapter
 import com.dicoding.myrestaurant.databinding.ActivityDetailRestaurantBinding
@@ -56,38 +60,57 @@ class DetailRestaurantActivity : AppCompatActivity() {
 
         detailRestaurantViewModel.getMenuRestaurant(restaurantId).observe(this, { menuRestaurant ->
             if (menuRestaurant != null) {
-                val foodAdapter = MenuAdapter()
-                val drinkAdapter = MenuAdapter()
-
-                foodAdapter.setData(menuRestaurant.foods)
-                drinkAdapter.setData(menuRestaurant.drinks)
-
-                with(binding.content.rvDrink) {
-                    layoutManager = LinearLayoutManager(context)
-                    setHasFixedSize(true)
-                    adapter = drinkAdapter
-                }
-
-                with(binding.content.rvFoods) {
-                    layoutManager = LinearLayoutManager(context)
-                    setHasFixedSize(true)
-                    adapter = foodAdapter
-                }
+                showMenuRestaurant(menuRestaurant)
             }
         })
 
         detailRestaurantViewModel.getReviewRestaurant(restaurantId).observe(this, { review ->
             if (review != null) {
-                val customerReviewAdapter = CustomerReviewAdapter()
-                customerReviewAdapter.setData(review)
-
-                with(binding.content.rvCustomerReviews) {
-                    layoutManager = LinearLayoutManager(context)
-                    setHasFixedSize(true)
-                    adapter = customerReviewAdapter
-                }
+                showReviewRestaurant(review)
             }
         })
+
+        binding.content.btnSend.setOnClickListener {
+            val name = binding.content.edName.text.toString()
+            val review = binding.content.edReview.text.toString()
+            detailRestaurantViewModel.postReviewRestaurant(restaurantId, name, review).observe(this, { postReview ->
+                if (postReview != null) {
+                    showReviewRestaurant(postReview)
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+    private fun showReviewRestaurant(data: List<CustomerReview>?) {
+        val customerReviewAdapter = CustomerReviewAdapter()
+        customerReviewAdapter.setData(data)
+
+        with(binding.content.rvCustomerReviews) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = customerReviewAdapter
+        }
+    }
+
+    private fun showMenuRestaurant(data: Menu) {
+        val foodAdapter = MenuAdapter()
+        val drinkAdapter = MenuAdapter()
+
+        foodAdapter.setData(data.foods)
+        drinkAdapter.setData(data.drinks)
+
+        with(binding.content.rvDrink) {
+            layoutManager = GridLayoutManager(context, 2)
+            setHasFixedSize(true)
+            adapter = drinkAdapter
+        }
+
+        with(binding.content.rvFoods) {
+            layoutManager = GridLayoutManager(context, 2)
+            setHasFixedSize(true)
+            adapter = foodAdapter
+        }
     }
 
     private fun showDetailRestaurant(data: DetailRestaurant?) {

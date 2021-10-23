@@ -15,4 +15,6 @@ class DetailRestaurantViewModel @Inject constructor(private val restaurantUseCas
     fun getReviewRestaurant(id: String) = restaurantUseCase.getReviewRestaurant(id).asLiveData()
     fun setFavoriteRestaurant(restaurant: DetailRestaurant, newStatus: Boolean) =
         restaurantUseCase.setFavoriteRestaurant(restaurant, newStatus)
+    fun postReviewRestaurant(id: String, name: String, review: String) =
+        restaurantUseCase.postReviewRestaurant(id, name, review).asLiveData()
 }

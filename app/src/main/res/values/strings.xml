@@ -8,11 +8,12 @@
     <string name="text_menus">Menus:</string>
     <string name="text_foods">foods:</string>
     <string name="text_drinks">drinks:</string>
-    <string name="text_customer_reviews">Customer Reviews:</string>
+    <string name="text_customer_review">Customer Reviews:</string>
+    <string name="write_your_review_here">Write your review here..</string>
     <string name="text_date">Sample of date</string>
-    <string name="text_name">Name</string>
-    <string name="text_review">Review</string>
-    <string name="submit">Submit</string>
+    <string name="name">Name</string>
+    <string name="review">Review</string>
+    <string name="send">Send</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_favorite">Favorite</string>

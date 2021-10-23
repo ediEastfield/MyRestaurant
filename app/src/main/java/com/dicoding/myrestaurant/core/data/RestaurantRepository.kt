@@ -104,6 +104,8 @@ class RestaurantRepository @Inject constructor(
         name: String,
         review: String
     ): Flow<List<CustomerReview>> {
-        TODO("Not yet implemented")
+        return remoteDataSource.postReviewRestaurant(id, name, review).map {
+            DataMapper.mapCustomerReviewResponseToDomain(it)
+        }
     }
 }
