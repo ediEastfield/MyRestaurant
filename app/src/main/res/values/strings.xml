@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">MyRestaurant</string>
+    <string name="image_description">Image</string>
+    <string name="text_primary">Sample of title text</string>
+    <string name="text_subtitle">Sample of subtitle text</string>
+    <string name="text_rating">4.0</string>
+    <string name="text_description">Sample of description</string>
+    <string name="text_menus">Menus:</string>
+    <string name="text_foods">foods:</string>
+    <string name="text_drinks">drinks:</string>
+    <string name="text_customer_reviews">Customer Reviews:</string>
+    <string name="text_date">Sample of date</string>
+    <string name="text_name">Name</string>
+    <string name="text_review">Review</string>
+    <string name="submit">Submit</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="search">Search</string>
+
+    <string name="title_activity_detail">Detail Restaurant</string>
+    <string name="no_data">Empty data</string>
+    <string name="something_wrong">Oops.. something went wrong</string>
+
+</resources>
